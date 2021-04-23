@@ -1,0 +1,29 @@
+version: '3'
+services:
+  # opencv:
+  #   image: ppawlowski/opencv:rpizero
+  #   build:
+  #     context: .
+  #     args:
+  #       - OPENCV_VERSION=4.4.0
+  #   volumes:
+  #     # - "${PWD}/src:/app"
+  #     - /etc/timezone:/etc/timezone:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #   environment:
+  #     - TZ=Europe/Berlin
+  #   platform: linux/arm
+  ocr:
+    image: ppawlowski/opencv-ocr:rpizero
+    build: .
+    ports:
+      - 5000:5000
+    volumes:
+      - "${PWD}/src:/app"
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - TZ=Europe/Berlin
+    platform: linux/arm
+    command: python3 /app/server.py
+    restart: always
